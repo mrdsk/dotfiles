@@ -62,7 +62,7 @@ main() {
   sudo -v
 
   cd $HOME
-  mkdir git && cd git
+  mkdir -p git && cd git
 
   download_dotfiles
   create_symlinks
