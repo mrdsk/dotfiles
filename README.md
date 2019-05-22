@@ -3,6 +3,5 @@
 my dotfiles.
 
 ## Usages
-git clone git@github.com:mrdsk/dotfiles.git ~/.dotfiles  
-cd ~/.dotfiles  
-./install.sh
+
+bash -c "$(curl -LSs https://raw.githubusercontent.com/mrdsk/dotfiles/master/install.sh)"
