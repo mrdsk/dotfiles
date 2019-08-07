@@ -55,7 +55,7 @@ alias gs='git status'
 alias gl='git log'
 alias glp='git log -p'
 alias glo='git log --pretty=oneline'
-
+alias gap='git add -p'
 
 # grepに色つける
 export GREP_OPTIONS='--color=auto'
