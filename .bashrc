@@ -57,6 +57,12 @@ alias glp='git log -p'
 alias glo='git log --pretty=oneline'
 alias gap='git add -p'
 
+# git addした差分確認
+alias gdc='git diff --cached'
+
+# memos
+alias ssh-keygen-f='ssh-keygen -f ~/.ssh/id_rsa'
+
 # grepに色つける
 export GREP_OPTIONS='--color=auto'
 
