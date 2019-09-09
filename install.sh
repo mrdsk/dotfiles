@@ -125,6 +125,13 @@ install_brew_and_packages() {
   print_success "Install Brew And Packages: Complete!"
 }
 
+install_vim() {
+  print_title "install vim neobundle..."
+
+  bash -c "$(curl -LSs https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh)"
+  [[ $? == 0 ]] && print_success "successfully installed: vim neobundle"
+}
+
 # setups
 # but no tests
 # setup_anyenv_rbenv() {
@@ -183,6 +190,7 @@ main() {
 
   install_xcode
   install_brew_and_packages
+  install_vim
 
   # setup_anyenv_rbenv
 }
