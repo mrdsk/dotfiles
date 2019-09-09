@@ -37,7 +37,7 @@ create_symlinks() {
 
 # installs
 install_xcode() {
-  print_title "Xcode"
+  print_title "Install Xcode: Start!"
 
   if [ -d "$(xcode-select -p)" ]; then
     print_warning "already installed: xcode-select"
@@ -45,6 +45,84 @@ install_xcode() {
     xcode-select --install
     print_success "install: xcode-select"
   fi
+
+  print_success "Install Xcode: Complete!"
+}
+
+install_brew_and_packages() {
+  print_title "Install Brew And Packages: Start!"
+
+  # brew
+  if type brew > /dev/null 2>&1; then
+    print_warning "already installed: homebrew"
+  else
+    print_message "Installing Homebrew..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    print_success "successfully installed"
+  fi
+
+  # brew update
+  print_message "brew update..."
+  if brew update > /dev/null 2>&1; then
+    print_success "successfully updated"
+  else
+    print_error "unsuccessfully updated"
+  fi
+
+  print_message "brew doctor..."
+  if brew doctor > /dev/null 2>&1; then
+    print_success "ready to brew"
+  else
+    print_error "not ready to brew"
+  fi
+
+  brew tap homebrew/cask-drivers
+  brew tap homebrew/cask-fonts
+  brew tap homebrew/cask-versions
+
+  # brew cask
+  print_message "Installing cask packages..."
+  cask_packages=(
+    docker
+    google-chrome
+    google-japanese-ime
+    slack
+  )
+  for package in "${cask_packages[@]}"; do
+    if brew cask list "$package" > /dev/null 2>&1; then
+      print_warning "already installed: $package"
+    elif brew cask install $package > /dev/null 2>&1; then
+      print_success "successfully installed: $package"
+    else
+      print_error "unsuccessfully installed: $package"
+    fi
+  done
+
+  # brew packages
+  print_message "Installing brew packages..."
+  brew_packages=(
+    anyenv
+    curl
+    git
+    graphviz
+    jq
+    lv
+    tig
+    wget
+  )
+  for package in "${brew_packages[@]}"; do
+    if brew list "$package" > /dev/null 2>&1; then
+      print_warning "already installed: $package"
+    elif brew install $package > /dev/null 2>&1; then
+      print_success "successfully installed: $package"
+    else
+      print_error "unsuccessfully installed: $package"
+    fi
+  done
+
+  brew cleanup
+
+  print_success "Install Brew And Packages: Complete!"
 }
 
 # Print utils
@@ -79,6 +157,7 @@ main() {
   create_symlinks
 
   install_xcode
+  install_brew_and_packages
 }
 
 main
