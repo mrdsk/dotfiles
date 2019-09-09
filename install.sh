@@ -35,6 +35,17 @@ create_symlinks() {
   print_success "Create symlinks: Complete!"
 }
 
+# installs
+install_xcode() {
+  print_title "Xcode"
+
+  if [ -d "$(xcode-select -p)" ]; then
+    print_warning "already installed: xcode-select"
+  else
+    xcode-select --install
+    print_success "install: xcode-select"
+  fi
+}
 
 # Print utils
 print_error() {
@@ -66,6 +77,8 @@ main() {
 
   download_dotfiles
   create_symlinks
+
+  install_xcode
 }
 
 main
