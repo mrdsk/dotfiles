@@ -125,6 +125,31 @@ install_brew_and_packages() {
   print_success "Install Brew And Packages: Complete!"
 }
 
+# setups
+# but no tests
+# setup_anyenv_rbenv() {
+#   print_title "setup rbenv..."
+#
+#   sstephenson_plugins=(
+#     ruby-build
+#     rbenv-default-gems
+#     rbenv-gem-rehash
+#   )
+#   for plugin in "${sstephenson_plugins[@]}"; do
+#     if [ -d "~/.anyenv/envs/rbenv/plugins/$plugin" ]; then
+#       print_warning "already cloned: $plugin"
+#     else
+#       git clone https://github.com/sstephenson/$plugin.git ~/.anyenv/envs/rbenv/plugins/$plugin
+#     fi
+#   done
+#
+#   if [ -d "~/.anyenv/envs/rbenv/plugins/rbenv-update" ]; then
+#     print_warning "already cloned: rbenv-update"
+#   else
+#     git clone https://github.com/rkh/rbenv-update.git ~/.anyenv/envs/rbenv/plugins/rbenv-update
+#   fi
+# }
+
 # Print utils
 print_error() {
   printf "\033[31m    [×] $1\033[m\n"
@@ -158,6 +183,8 @@ main() {
 
   install_xcode
   install_brew_and_packages
+
+  # setup_anyenv_rbenv
 }
 
 main
