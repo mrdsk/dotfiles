@@ -14,9 +14,9 @@ download_dotfiles() {
   print_success "Download dotfiles: Complete!"
 }
 
-# create symlinks
-create_symlinks() {
-  print_title "Create synlinks: Start!"
+# create dotfile symlinks
+create_dotfiles_symlinks() {
+  print_title "Create dotfiles synlinks: Start!"
 
   cd dotfiles
 
@@ -24,6 +24,7 @@ create_symlinks() {
   do
     filepath="$(pwd)/${f}"
     [[ $f == .git ]] && continue
+    [[ $f == .bashrc.d ]] && continue
     test -r ~/$f     && print_warning "already exists: ~/$f" && continue
 
     ln -s $filepath ~/$f
@@ -32,9 +33,35 @@ create_symlinks() {
 
   cd ..
 
-  print_success "Create symlinks: Complete!"
+  print_success "Create dotfiles symlinks: Complete!"
 }
 
+# create .bashrc.d symlinks
+create_bashrcd_symlinks() {
+  print_title "Create .bashrc.d synlinks: Start!"
+
+  if [ -d "~/.bashrc.d" ]; then
+    print_warning "~/.bashrc.d: already exists."
+  else
+    print_message "mkdir..."
+    mkdir -p ~/.bashrc.d
+  fi
+
+  cd dotfiles/.bashrc.d
+
+  for f in ??*
+  do
+    filepath="$(pwd)/${f}"
+
+    test -r ~/.bashrc.d/$f && print_warning "already exists: ~/$f" && continue
+
+    ln -s $filepath ~/.bashrc.d/$f
+    [[ $? == 0 ]] && print_success "make: ~/.bashrc.d/$f -> $filepath"
+  done
+  cd ../..
+
+  print_success "Create .bashrc.d symlinks: Complete!"
+}
 
 # Print utils
 print_error() {
@@ -65,7 +92,8 @@ main() {
   mkdir -p git && cd git
 
   download_dotfiles
-  create_symlinks
+  create_dotfiles_symlinks
+  create_bashrcd_symlinks
 }
 
 main
