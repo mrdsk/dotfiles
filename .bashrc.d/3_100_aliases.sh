@@ -1,6 +1,7 @@
 # alias
 alias l='ls -laFG'
 alias v='vim'
+alias ag='ag -S --stats'
 
 # git commands
 alias g='git'
