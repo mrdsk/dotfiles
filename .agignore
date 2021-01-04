@@ -1,0 +1,12 @@
+*~
+*.swp
+*.bak
+*.old
+*.png
+tmp
+old
+.vim/bundle
+.vim/dict
+.bundle
+.git
+.svn
